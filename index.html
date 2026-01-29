@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Professional 3D</title>
+    <link rel="stylesheet" href="style.css?v=2">
+    <!-- Prism.js theme for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">Portfolio</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+            <!-- Hero / Home -->
+            <section id="home" class="hero">
+                <div class="container">
+                    <div class="hero-inner">
+                        <h1 class="hero-title">Hi — I'm a Full‑Stack Developer</h1>
+                        <p class="hero-subtitle">I build interactive web apps, 3D experiences, and fast APIs.</p>
+                        <div class="hero-ctas">
+                            <a href="#projects" class="cta-button">See Projects</a>
+                            <a href="#contact" class="cta-button secondary">Get In Touch</a>
+                        </div>
+
+                        <!-- TypeScript Tiny Live Demo (highlighted) -->
+                        <div class="ts-demo-section" style="margin-top:1.25rem;">
+                            <h4>TypeScript Live Demo</h4>
+                            <div class="ts-demo-card">
+                                <div class="ts-demo-code">
+                                    <pre><code class="language-typescript">// TypeScript: typed add function
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+// Example usage
+const result = add(2, 3);
+console.log(result);</code></pre>
+                                </div>
+                                <div class="ts-demo-run">
+                                    <label>Number A:<br><input id="ts-a" type="number" value="2"></label>
+                                    <label>Number B:<br><input id="ts-b" type="number" value="3"></label>
+                                    <button id="ts-run-btn" class="copy-btn" style="display:block; margin-top:0.5rem;">Compute</button>
+                                    <div id="ts-result" style="margin-top:0.5rem; font-weight:600; color:var(--accent);"></div>
+                                    <div style="margin-top:0.5rem; font-size:0.85rem; color:rgba(255,255,255,0.8);">Note: The demo runs the compiled JS equivalent but shows TypeScript source for clarity.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-card flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="about-image"></div>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>Creative Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p>I'm a passionate full-stack developer with expertise in creating beautiful and functional web applications. With a keen eye for design and strong technical skills, I transform ideas into reality.</p>
+                    <p>I specialize in modern web technologies and enjoy building interactive experiences that engage users. My approach combines creativity with technical excellence to deliver outstanding results.</p>
+                    
+                    <!-- Rotating Quote Section -->
+                    <div class="quote-section">
+                        <div class="quote-box">
+                            <p id="rotating-quote" class="quote-text">"Innovation distinguishes between a leader and a follower."</p>
+                            <p id="quote-author" class="quote-author">— Steve Jobs</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">30+</span>
+                            <span class="stat-label">Clients</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">5+</span>
+                            <span class="stat-label">Years</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section with 3D Cards -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card card-3d">
+                    <div class="card-inner">
+                        <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                        <div class="card-content">
+                            <h3>E-Commerce Platform</h3>
+                            <p>A full-featured e-commerce solution with 3D product visualization and real-time inventory management.</p>
+                            <div class="card-tags">
+                                <span class="tag">React</span>
+                                <span class="tag">Node.js</span>
+                                <span class="tag">Three.js</span>
+                            </div>
+                            <a href="#" class="card-link">View Project →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card card-3d">
+                    <div class="card-inner">
+                        <div class="card-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                        <div class="card-content">
+                            <h3>Social Media App</h3>
+                            <p>A modern social platform with real-time notifications, user interactions, and beautiful UI.</p>
+                            <div class="card-tags">
+                                <span class="tag">Vue.js</span>
+                                <span class="tag">Firebase</span>
+                                <span class="tag">WebSocket</span>
+                            </div>
+                            <a href="#" class="card-link">View Project →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card card-3d">
+                    <div class="card-inner">
+                        <div class="card-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                        <div class="card-content">
+                            <h3>Data Analytics Dashboard</h3>
+                            <p>Interactive dashboard with real-time data visualization and advanced analytics capabilities.</p>
+                            <div class="card-tags">
+                                <span class="tag">D3.js</span>
+                                <span class="tag">Python</span>
+                                <span class="tag">PostgreSQL</span>
+                            </div>
+                            <a href="#" class="card-link">View Project →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card card-3d">
+                    <div class="card-inner">
+                        <div class="card-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
+                        <div class="card-content">
+                            <h3>AI Chat Application</h3>
+                            <p>Intelligent chatbot with natural language processing and machine learning integration.</p>
+                            <div class="card-tags">
+                                <span class="tag">Python</span>
+                                <span class="tag">TensorFlow</span>
+                                <span class="tag">WebRTC</span>
+                            </div>
+                            <a href="#" class="card-link">View Project →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card card-3d">
+                    <div class="card-inner">
+                        <div class="card-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                        <div class="card-content">
+                            <h3>3D Product Viewer</h3>
+                            <p>Interactive 3D product visualization tool with AR support and customization options.</p>
+                            <div class="card-tags">
+                                <span class="tag">Three.js</span>
+                                <span class="tag">AR.js</span>
+                                <span class="tag">WebGL</span>
+                            </div>
+                            <a href="#" class="card-link">View Project →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card card-3d">
+                    <div class="card-inner">
+                        <div class="card-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
+                        <div class="card-content">
+                            <h3>Mobile Gaming Platform</h3>
+                            <p>Cross-platform gaming experience with multiplayer support and social features.</p>
+                            <div class="card-tags">
+                                <span class="tag">Unity</span>
+                                <span class="tag">Node.js</span>
+                                <span class="tag">MongoDB</span>
+                            </div>
+                            <a href="#" class="card-link">View Project →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- (old skills block removed) -->
+    <!-- Skills Section Upgraded -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <p class="skills-subtitle">Proficient in modern technologies and best practices</p>
+
+            <!-- Skills Toggle Buttons -->
+            <div class="skill-filters">
+                <button class="filter-btn active" data-filter="all">All Skills</button>
+                <button class="filter-btn" data-filter="frontend">Frontend</button>
+                <button class="filter-btn" data-filter="backend">Backend</button>
+                <button class="filter-btn" data-filter="tools">Tools & Other</button>
+            </div>
+
+            <!-- Upgraded Skills Grid -->
+            <div class="skills-grid-upgraded">
+                <!-- Frontend Skills -->
+                <div class="skill-category-card frontend" data-category="frontend">
+                    <div class="category-header">
+                        <h3>Frontend Development</h3>
+                        <span class="category-icon">🎨</span>
+                    </div>
+                    <div class="skill-media-grid">
+                        <div class="skill-media">
+                            <img src="assets/frontend-htmlcss.svg" alt="HTML CSS project">
+                            <button class="code-curiosity-btn" data-skill="htmlcss">Curious?</button>
+                        </div>
+                        <div class="skill-media">
+                            <img src="assets/frontend-js.svg" alt="JavaScript project">
+                            <button class="code-curiosity-btn" data-skill="javascript">Curious?</button>
+                        </div>
+                        <div class="skill-media">
+                            <img src="assets/frontend-react.svg" alt="React project">
+                            <button class="code-curiosity-btn" data-skill="react">Curious?</button>
+                        </div>
+                        <div class="skill-media">
+                            <img src="assets/frontend-responsive.svg" alt="Responsive Design">
+                            <button class="code-curiosity-btn" data-skill="responsive">Curious?</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Skills -->
+                <div class="skill-category-card backend" data-category="backend">
+                    <div class="category-header">
+                        <h3>Backend Development</h3>
+                        <span class="category-icon">⚙️</span>
+                    </div>
+                    <div class="skill-media-grid">
+                        <div class="skill-media">
+                            <img src="assets/backend-node.svg" alt="Node.js projects">
+                            <button class="code-curiosity-btn" data-skill="nodejs">Curious?</button>
+                        </div>
+                        <div class="skill-media">
+                            <img src="assets/backend-python.svg" alt="Python projects">
+                            <button class="code-curiosity-btn" data-skill="python">Curious?</button>
+                        </div>
+                        <div class="skill-media">
+                            <img src="assets/database.svg" alt="Databases">
+                            <button class="code-curiosity-btn" data-skill="database">Curious?</button>
+                        </div>
+                        <div class="skill-media">
+                            <img src="assets/api.svg" alt="APIs and integrations">
+                            <button class="code-curiosity-btn" data-skill="api">Curious?</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools & Other Skills -->
+                <div class="skill-category-card tools" data-category="tools">
+                    <div class="category-header">
+                        <h3>Tools & Practices</h3>
+                        <span class="category-icon">🛠️</span>
+                    </div>
+                    <div class="skill-media-grid">
+                        <div class="skill-media">
+                            <img src="assets/tools-git.svg" alt="Git & GitHub">
+                            <button class="code-curiosity-btn" data-skill="git">Curious?</button>
+                        </div>
+                        <div class="skill-media">
+                            <img src="assets/tools-agile.svg" alt="Agile / Scrum">
+                            <button class="code-curiosity-btn" data-skill="agile">Curious?</button>
+                        </div>
+                        <div class="skill-media">
+                            <img src="assets/tools-docker.svg" alt="Docker & DevOps">
+                            <button class="code-curiosity-btn" data-skill="docker">Curious?</button>
+                        </div>
+                        <div class="skill-media">
+                            <img src="assets/tools-testing.svg" alt="Testing & QA">
+                            <button class="code-curiosity-btn" data-skill="testing">Curious?</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack Icons -->
+            <div class="tech-stack-section">
+                <h3>Technology Stack</h3>
+                <div class="tech-stack-grid">
+                    <div class="tech-badge">
+                        <span class="tech-icon">⚛️</span>
+                        <span class="tech-name">React</span>
+                    </div>
+                    <div class="tech-badge">
+                        <span class="tech-icon">💚</span>
+                        <span class="tech-name">Vue.js</span>
+                    </div>
+                    <div class="tech-badge">
+                        <span class="tech-icon">🟢</span>
+                        <span class="tech-name">Node.js</span>
+                    </div>
+                    <div class="tech-badge">
+                        <span class="tech-icon">🐍</span>
+                        <span class="tech-name">Python</span>
+                    </div>
+                    <div class="tech-badge">
+                        <span class="tech-icon">🍃</span>
+                        <span class="tech-name">MongoDB</span>
+                    </div>
+                    <div class="tech-badge">
+                        <span class="tech-icon">🐘</span>
+                        <span class="tech-name">PostgreSQL</span>
+                    </div>
+                    <div class="tech-badge">
+                        <span class="tech-icon">🔀</span>
+                        <span class="tech-name">Git</span>
+                    </div>
+                    <div class="tech-badge">
+                        <span class="tech-icon">🐳</span>
+                        <span class="tech-name">Docker</span>
+                    </div>
+                    <div class="tech-badge">
+                        <span class="tech-icon">☁️</span>
+                        <span class="tech-name">AWS</span>
+                    </div>
+                    <div class="tech-badge mini">
+                        <img src="assets/typescript.svg" class="tech-img" alt="TypeScript" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-icon').style.display='inline-block'">
+                        <div class="tech-info">
+                            <span class="tech-name">TypeScript</span>
+                            <span class="tech-desc">Static typing for safer JS</span>
+                        </div>
+                        <span class="tech-icon fallback-icon" style="display:none">🟦</span>
+                    </div>
+                    <div class="tech-badge mini">
+                        <img src="assets/wasm.svg" class="tech-img" alt="WebAssembly" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-icon').style.display='inline-block'">
+                        <div class="tech-info">
+                            <span class="tech-name">WebAssembly</span>
+                            <span class="tech-desc">Run near-native code in the browser</span>
+                        </div>
+                        <span class="tech-icon fallback-icon" style="display:none">🧩</span>
+                    </div>
+                    <div class="tech-badge mini">
+                        <img src="assets/graphql.svg" class="tech-img" alt="GraphQL" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-icon').style.display='inline-block'">
+                        <div class="tech-info">
+                            <span class="tech-name">GraphQL</span>
+                            <span class="tech-desc">Flexible, client-driven API queries</span>
+                        </div>
+                        <span class="tech-icon fallback-icon" style="display:none">🔺</span>
+                    </div>
+                    <div class="tech-badge mini">
+                        <img src="assets/tfjs.svg" class="tech-img" alt="TensorFlow.js" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-icon').style.display='inline-block'">
+                        <div class="tech-info">
+                            <span class="tech-name">TensorFlow.js</span>
+                            <span class="tech-desc">In-browser ML inference</span>
+                        </div>
+                        <span class="tech-icon fallback-icon" style="display:none">🧠</span>
+                    </div>
+                    <div class="tech-badge mini">
+                        <img src="assets/github-actions.svg" class="tech-img" alt="GitHub Actions" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-icon').style.display='inline-block'">
+                        <div class="tech-info">
+                            <span class="tech-name">GitHub Actions</span>
+                            <span class="tech-desc">CI/CD automation</span>
+                        </div>
+                        <span class="tech-icon fallback-icon" style="display:none">⚙️</span>
+                    </div>
+                    <div class="tech-badge mini">
+                        <img src="assets/terraform.svg" class="tech-img" alt="Terraform" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-icon').style.display='inline-block'">
+                        <div class="tech-info">
+                            <span class="tech-name">Terraform</span>
+                            <span class="tech-desc">Infrastructure as Code</span>
+                        </div>
+                        <span class="tech-icon fallback-icon" style="display:none">⛏️</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                            <h3>Email</h3>
+                            <p><a href="mailto:hello@example.com">hello@example.com</a></p>
+                        </div>
+                    <div class="contact-item">
+                        <h3>Phone</h3>
+                        <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Location</h3>
+                        <p>San Francisco, CA</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/donbill-mwshahary-7731293a1/" class="social-icon" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="https://github.com/Donbili69" class="social-icon" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="https://x.com/Donbill_M" class="social-icon" target="_blank" rel="noopener noreferrer">Twitter</a>
+                    </div>
+                </div>
+
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <input name="name" type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input name="email" type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input name="subject" type="text" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Popup -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="modal-close" class="modal-close">×</span>
+            <h3 id="modal-title">Message</h3>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+
+    <!-- Code Snippet Modal -->
+    <div id="code-modal" class="modal">
+        <div class="modal-content code-modal-content">
+            <span class="modal-close" id="code-modal-close">×</span>
+            <h3 id="code-title">Code Snippet</h3>
+            <div id="code-output" class="code-output"></div>
+            <pre id="code-snippet" class="code-snippet-block"><code></code></pre>
+            <button id="copy-code-btn" class="copy-btn">Copy Code</button>
+            <button id="run-code-btn" class="copy-btn" style="margin-left: 0.5rem;">Run Code</button>
+            <button id="toggle-full-btn" class="copy-btn" style="margin-left: 0.5rem;">Show More</button>
+            <a id="learn-more-btn" class="copy-btn" style="margin-left: 0.5rem; text-decoration: none; display: inline-block; text-align: center;" target="_blank">Learn More →</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 My Portfolio. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

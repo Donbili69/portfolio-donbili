@@ -1,0 +1,21 @@
+{
+  "name": "portfolio-2.0",
+  "version": "1.0.0",
+  "description": "A modern, interactive, and responsive 3D portfolio website featuring interactive code snippets, rotating inspirational quotes, professional demos, and seamless contact form integration with email notifications.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "nodemailer": "^7.0.13",
+    "puppeteer": "^24.36.1"
+  }
+}
