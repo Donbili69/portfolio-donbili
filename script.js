@@ -50,7 +50,7 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
-            
+
             // Animate skill bars
             if (entry.target.classList.contains('skill-progress')) {
                 const width = entry.target.style.width;
@@ -95,44 +95,44 @@ if (modal) {
 
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    const formData = new FormData(contactForm);
-    const payload = {
-        name: formData.get('name')?.trim(),
-        email: formData.get('email')?.trim(),
-        subject: formData.get('subject')?.trim(),
-        message: formData.get('message')?.trim()
-    };
+        const formData = new FormData(contactForm);
+        const payload = {
+            name: formData.get('name')?.trim(),
+            email: formData.get('email')?.trim(),
+            subject: formData.get('subject')?.trim(),
+            message: formData.get('message')?.trim()
+        };
 
-    if (!payload.name || !payload.email || !payload.subject || !payload.message) {
-        showModal('Validation Error', 'Please fill in all fields before sending.');
-        return;
-    }
-
-    const submitBtn = contactForm.querySelector('.submit-btn');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-
-    try {
-        const resp = await fetch('/api/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-        let result = {};
-        try { result = await resp.json(); } catch (e) { result = {}; }
-        if (resp.ok) {
-            showModal('Message Sent', 'Thank you — your message has been received. I will reply shortly.');
-            contactForm.reset();
-        } else {
-            showModal('Error', result.error || 'Failed to send message. Please try again later.');
+        if (!payload.name || !payload.email || !payload.subject || !payload.message) {
+            showModal('Validation Error', 'Please fill in all fields before sending.');
+            return;
         }
-    } catch (err) {
-        console.error('Submit error', err);
-        showModal('Network Error', 'Unable to send message. Check your connection or try again later.');
-    } finally {
+
+        const submitBtn = contactForm.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        try {
+            const resp = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            let result = {};
+            try { result = await resp.json(); } catch (e) { result = {}; }
+            if (resp.ok) {
+                showModal('Message Sent', 'Thank you — your message has been received. I will reply shortly.');
+                contactForm.reset();
+            } else {
+                showModal('Error', result.error || 'Failed to send message. Please try again later.');
+            }
+        } catch (err) {
+            console.error('Submit error', err);
+            showModal('Network Error', 'Unable to send message. Check your connection or try again later.');
+        } finally {
             if (submitBtn) {
                 submitBtn.textContent = originalText || 'Send Message';
                 submitBtn.disabled = false;
@@ -160,20 +160,20 @@ projectCards.forEach(card => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        
+
         const rotateX = (y - centerY) / 10;
         const rotateY = (centerX - x) / 10;
-        
+
         card.querySelector('.card-inner').style.transform = `
             perspective(1000px) 
             rotateX(${rotateX}deg) 
             rotateY(${rotateY}deg)
         `;
     });
-    
+
     card.addEventListener('mouseleave', () => {
         card.querySelector('.card-inner').style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
     });
@@ -182,7 +182,7 @@ projectCards.forEach(card => {
 // ===== Parallax Effect =====
 window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
-    
+
     // Move floating balls with parallax
     const balls = document.querySelectorAll('.float-ball');
     balls.forEach((ball, index) => {
@@ -215,12 +215,12 @@ const statsObserver = new IntersectionObserver((entries) => {
 
 function animateCounters() {
     const counters = document.querySelectorAll('.stat-number');
-    
+
     counters.forEach(counter => {
         const target = parseInt(counter.textContent);
         let count = 0;
         const increment = target / 50;
-        
+
         const updateCount = () => {
             count += increment;
             if (count < target) {
@@ -230,7 +230,7 @@ function animateCounters() {
                 counter.textContent = target + '+';
             }
         };
-        
+
         updateCount();
     });
 }
@@ -266,9 +266,9 @@ filterBtns.forEach(btn => {
         filterBtns.forEach(b => b.classList.remove('active'));
         // Add active class to clicked button
         btn.classList.add('active');
-        
+
         const filterValue = btn.getAttribute('data-filter');
-        
+
         // Filter skill cards
         skillCards.forEach(card => {
             if (filterValue === 'all') {
@@ -293,7 +293,7 @@ techBadges.forEach(badge => {
     badge.addEventListener('mouseenter', () => {
         badge.style.transform = 'scale(1.1) rotateY(10deg)';
     });
-    
+
     badge.addEventListener('mouseleave', () => {
         badge.style.transform = 'scale(1) rotateY(0deg)';
     });
@@ -302,7 +302,7 @@ techBadges.forEach(badge => {
 // ===== Page Load Animation =====
 window.addEventListener('load', () => {
     document.body.style.opacity = '1';
-    
+
     // Animate section titles
     document.querySelectorAll('.section-title').forEach((title, index) => {
         title.style.animation = `slideInDown 0.8s ease ${index * 0.1}s both`;
@@ -345,7 +345,7 @@ document.addEventListener('keydown', (e) => {
         const element = document.querySelector(s);
         return element && element.offsetTop <= window.scrollY + 100;
     });
-    
+
     if (e.key === 'ArrowDown') {
         e.preventDefault();
         if (currentIndex < sections.length - 1) {
@@ -372,7 +372,7 @@ const createProgressBar = () => {
         z-index: 999;
     `;
     document.body.appendChild(progressBar);
-    
+
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -416,7 +416,7 @@ document.querySelectorAll('a, button').forEach(element => {
         cursor.style.borderColor = '#00d4ff';
         cursor.style.opacity = '1';
     });
-    
+
     element.addEventListener('mouseleave', () => {
         cursor.style.borderColor = '#00d4ff';
         cursor.style.opacity = '0.5';
@@ -490,7 +490,7 @@ const CODE_SNIPPETS = {
   <h3 style="margin: 0 0 1rem; font-size: 1.5rem;">✨ Beautiful Card</h3>
   <p style="margin: 0; font-size: 0.95rem;">Hover over this to see the effect!</p>
 </div>`,
-        resource: { 
+        resource: {
             url: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
             description: "Learn semantic HTML structure, accessibility, and modern CSS techniques from Mozilla's comprehensive guides."
         }
@@ -532,7 +532,7 @@ function incrementCounter() {
   }
 }
 </script>`,
-        resource: { 
+        resource: {
             url: 'https://javascript.info',
             description: "Master JavaScript fundamentals with interactive tutorials, from basic syntax to advanced async/await patterns."
         }
@@ -571,7 +571,7 @@ export default Counter;`,
   <p style="font-size: 1.2rem; color: #00d4ff; margin: 1rem 0;">Click the button to increment</p>
   <button style="padding: 0.8rem 1.5rem; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">⚛️ Works with state management</button>
 </div>`,
-        resource: { 
+        resource: {
             url: 'https://react.dev',
             description: "Learn React from the official documentation. Build interactive UIs with hooks, state management, and component best practices."
         }
@@ -615,7 +615,7 @@ export default Counter;`,
   <div style="padding: 2rem; background: #764ba2; border-radius: 8px; text-align: center; color: white; font-weight: bold;">Item 2</div>
   <div style="padding: 2rem; background: #f093fb; border-radius: 8px; text-align: center; color: white; font-weight: bold;">Item 3</div>
 </div>`,
-        resource: { 
+        resource: {
             url: 'https://web.dev/responsive-web-design-basics/',
             description: "Master responsive design techniques. Learn mobile-first approach, flexbox, CSS grid, and media queries for all devices."
         }
@@ -656,7 +656,7 @@ app.listen(3000, () => {
   </ul>
   <p style="margin-top: 1rem; color: #667eea;">This is a production-ready Express setup!</p>
 </div>`,
-        resource: { 
+        resource: {
             url: 'https://nodejs.org/docs/',
             description: "Learn Node.js server-side development. Build REST APIs, handle async operations, and create scalable backend applications."
         }
@@ -693,7 +693,7 @@ print(f"Portfolio Stats: {stats}")`,
     <li>Status: Active Development ✓</li>
   </ul>
 </div>`,
-        resource: { 
+        resource: {
             url: 'https://python.org/about/gettingstarted/',
             description: "Learn Python programming from basics to advanced. Explore data structures, functions, and build real-world projects."
         }
@@ -731,7 +731,7 @@ SELECT title, technologies FROM projects ORDER BY completion_date DESC;`,
     </tr>
   </table>
 </div>`,
-        resource: { 
+        resource: {
             url: 'https://www.w3schools.com/sql/',
             description: "Master database design and SQL queries. Learn database management, optimization, and best practices for data storage."
         }
@@ -773,7 +773,7 @@ fetchPortfolioData().then(data => {
   }
 }</pre>
 </div>`,
-        resource: { 
+        resource: {
             url: 'https://restfulapi.net/',
             description: "Understand REST API design principles. Learn proper HTTP methods, status codes, and create well-designed APIs."
         }
@@ -809,7 +809,7 @@ git status`,
     <li>Status: Ready for merge</li>
   </ul>
 </div>`,
-        resource: { 
+        resource: {
             url: 'https://git-scm.com/doc',
             description: "Learn Git version control thoroughly. Master branching, merging, collaboration workflows, and best practices for teams."
         }
@@ -846,7 +846,7 @@ git status`,
     <li>Team: 4 developers, 1 designer</li>
   </ul>
 </div>`,
-        resource: { 
+        resource: {
             url: 'https://agilemanifesto.org/',
             description: "Understand Agile methodology and iterative development. Learn sprint planning, standups, and team collaboration practices."
         }
@@ -882,7 +882,7 @@ docker stop <id>      # Stop container`,
     <li>Memory: 256MB | CPU: 0.5</li>
   </ul>
 </div>`,
-        resource: { 
+        resource: {
             url: 'https://docs.docker.com/',
             description: "Learn containerization with Docker. Build, deploy, and manage containers for consistent development and production environments."
         }
@@ -917,7 +917,7 @@ describe('Portfolio Functions', () => {
     <li style="color: #00d4ff; margin-top: 1rem;"><strong>3 passed, 0 failed</strong></li>
   </ul>
 </div>`,
-        resource: { 
+        resource: {
             url: 'https://jestjs.io/docs/getting-started',
             description: "Master automated testing with Jest. Learn unit testing, integration testing, and mocking for reliable code quality."
         }
@@ -941,7 +941,7 @@ function initCodeSnippets() {
     // Close Modal
     const closeCodeModal = () => codeModal.style.display = 'none';
     if (codeModalClose) codeModalClose.addEventListener('click', closeCodeModal);
-    
+
     codeModal.addEventListener('click', (e) => {
         if (e.target === codeModal) closeCodeModal();
     });
@@ -997,10 +997,10 @@ function initCodeSnippets() {
                 codeSnippetBlock.textContent = snippet.code;
                 codeOutput.innerHTML = snippet.output || '';
                 codeOutput.style.display = snippet.output ? 'block' : 'none';
-                
+
                 // Store skill for run button
                 codeRunBtn.setAttribute('data-skill', skill);
-                
+
                 // Set Learn More link
                 if (learnMoreBtn && snippet.resource) {
                     learnMoreBtn.href = snippet.resource.url;
@@ -1017,7 +1017,7 @@ function initCodeSnippets() {
                     toggleFullBtn.textContent = 'Show More';
                     toggleFullBtn.style.display = 'inline-block';
                 }
-                
+
                 codeModal.style.display = 'flex';
             }
         });
