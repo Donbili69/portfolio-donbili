@@ -1,3 +1,22 @@
+// ===== Lenis Smooth Scrolling =====
+const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+});
+
+function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+}
+
+requestAnimationFrame(raf);
+
 // ===== Mobile Menu Toggle =====
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -15,13 +34,17 @@ if (hamburger && navMenu) {
     });
 }
 
-// ===== Smooth Scrolling =====
+// ===== Smooth Scrolling (Integrated with Lenis) =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
+            lenis.scrollTo(target);
+            // Close mobile menu if open
+            if (navMenu && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+            }
         }
     });
 });
@@ -383,45 +406,6 @@ const createProgressBar = () => {
 
 createProgressBar();
 
-// ===== Dynamic Cursor Effect =====
-const cursor = document.createElement('div');
-cursor.style.cssText = `
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #00d4ff;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.5;
-    display: none;
-`;
-document.body.appendChild(cursor);
-
-document.addEventListener('mousemove', (e) => {
-    if (window.innerWidth > 768) {
-        cursor.style.display = 'block';
-        cursor.style.left = (e.clientX - 10) + 'px';
-        cursor.style.top = (e.clientY - 10) + 'px';
-    }
-});
-// Hide cursor when leaving window
-window.addEventListener('mouseout', (e) => {
-    if (!e.relatedTarget && !e.toElement) cursor.style.display = 'none';
-});
-
-// ===== Links and Buttons Hover Effect =====
-document.querySelectorAll('a, button').forEach(element => {
-    element.addEventListener('mouseenter', () => {
-        cursor.style.borderColor = '#00d4ff';
-        cursor.style.opacity = '1';
-    });
-
-    element.addEventListener('mouseleave', () => {
-        cursor.style.borderColor = '#00d4ff';
-        cursor.style.opacity = '0.5';
-    });
-});
 
 // ===== Rotating Quotes & Jokes =====
 const QUOTES_LIBRARY = [
