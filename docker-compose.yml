@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  portfolio:
+    build: .
+    container_name: donbil_portfolio
+    restart: always
+    ports:
+      # HOST:CONTAINER
+      # We use 3002 for Donbil (3000=Main, 3001=You)
+      - "3002:3000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - internal_net
+
+networks:
+  internal_net:
+    external: true
+    # This connects him to the same database/network as you
+    name: codelith-core-services_internal_net
