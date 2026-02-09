@@ -114,8 +114,6 @@ portfolio 2.0/
    ```
 
 4. **Access the Site**:
-   Open http://localhost:8080 in your browser
-
 ### Verify Installation
 ```bash
 # Check server health
