@@ -10,8 +10,9 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Build the app
-RUN npm run build
+# --- DELETED THE BUILD COMMAND BELOW ---
+# The line "RUN npm run build" was causing the error because
+# your package.json has no "build" script.
 
 # Start the server on port 3000
 CMD ["npm", "start"]
