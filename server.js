@@ -137,6 +137,11 @@ app.post('/api/contact', async (req, res) => {
 
 app.use(express.static(path.join(__dirname)));
 
+// Explicitly serve index.html for root route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 app.listen(PORT, () => {
     console.log(`Server listening on http://localhost:${PORT}`);
 });

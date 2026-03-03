@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Donbili | Full-Stack Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --secondary: #ef4444;
+            --accent: #fbbf24;
+            --dark: #0f0f0f;
+            --dark-card: #1a1a1a;
+            --text: #fafafa;
+            --text-muted: #a1a1aa;
+            --border: #27272a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Hero - Magazine Style */
+        .hero-section {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+            position: relative;
+            background:
+                repeating-linear-gradient(90deg,
+                    var(--dark) 0px,
+                    var(--dark) 100px,
+                    rgba(245, 158, 11, 0.03) 100px,
+                    rgba(245, 158, 11, 0.03) 101px),
+                var(--dark);
+        }
+
+        .hero-content {
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            background: linear-gradient(180deg, var(--text) 0%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .hero-content .date {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Blog Grid */
+        .blog-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 25px 50px rgba(245, 158, 11, 0.15);
+        }
+
+        .blog-image {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(239, 68, 68, 0.2));
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        .blog-date {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .blog-category {
+            color: var(--text-muted);
+            background: rgba(245, 158, 11, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .blog-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+            transition: color 0.3s;
+        }
+
+        .blog-card:hover .blog-content h3 {
+            color: var(--primary);
+        }
+
+        .blog-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            margin-top: 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            padding: 5rem 2rem;
+            background: var(--dark-card);
+            text-align: center;
+        }
+
+        .newsletter-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-section p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            background: var(--dark);
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .newsletter-btn {
+            padding: 1rem 2rem;
+            background: var(--primary);
+            border: none;
+            border-radius: 50px;
+            color: var(--dark);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Topics */
+        .topics-section {
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .topics-section h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .topics-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .topic-tag {
+            padding: 0.7rem 1.4rem;
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .topic-tag:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text);
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--dark-card);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.3s;
+                border-left: 1px solid var(--border);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-menu li {
+                margin: 1rem 0;
+            }
+
+            .nav-menu .nav-link {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">Portfolio</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <span class="date">Est. 2025</span>
+            <h1>Blog</h1>
+            <p>Thoughts on development, technology, and more</p>
+        </div>
+    </section>
+
+    <!-- Blog Grid -->
+    <section class="blog-section">
+        <div class="blog-grid">
+            <!-- Blog 1 -->
+            <article class="blog-card">
+                <div class="blog-image">🚀</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">Mar 1, 2026</span>
+                        <span class="blog-category">Web Dev</span>
+                    </div>
+                    <h3>Building Fast and Responsive Websites in 2026</h3>
+                    <p>Explore the latest techniques for creating high-performance websites.</p>
+                    <span class="read-more">Read Article →</span>
+                </div>
+            </article>
+
+            <!-- Blog 2 -->
+            <article class="blog-card">
+                <div class="blog-image">🤖</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">Feb 15, 2026</span>
+                        <span class="blog-category">AI/ML</span>
+                    </div>
+                    <h3>Getting Started with ML for Web Developers</h3>
+                    <p>A beginner's guide to integrating AI into your web apps.</p>
+                    <span class="read-more">Read Article →</span>
+                </div>
+            </article>
+
+            <!-- Blog 3 -->
+            <article class="blog-card">
+                <div class="blog-image">⚛️</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">Jan 28, 2026</span>
+                        <span class="blog-category">React</span>
+                    </div>
+                    <h3>React 19: New Features and Best Practices</h3>
+                    <p>Deep dive into React 19's new features and improvements.</p>
+                    <span class="read-more">Read Article →</span>
+                </div>
+            </article>
+
+            <!-- Blog 4 -->
+            <article class="blog-card">
+                <div class="blog-image">🐳</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">Jan 10, 2026</span>
+                        <span class="blog-category">DevOps</span>
+                    </div>
+                    <h3>Docker Best Practices for Development</h3>
+                    <p>Learn how to effectively use Docker in your workflow.</p>
+                    <span class="read-more">Read Article →</span>
+                </div>
+            </article>
+
+            <!-- Blog 5 -->
+            <article class="blog-card">
+                <div class="blog-image">🎨</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">Dec 20, 2025</span>
+                        <span class="blog-category">Design</span>
+                    </div>
+                    <h3>CSS Grid and Flexbox Mastery</h3>
+                    <p>Master modern CSS layout techniques for responsive designs.</p>
+                    <span class="read-more">Read Article →</span>
+                </div>
+            </article>
+
+            <!-- Blog 6 -->
+            <article class="blog-card">
+                <div class="blog-image">🔒</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">Dec 5, 2025</span>
+                        <span class="blog-category">Security</span>
+                    </div>
+                    <h3>Web Security Best Practices</h3>
+                    <p>Essential security tips to protect your web applications.</p>
+                    <span class="read-more">Read Article →</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Topics -->
+    <section class="topics-section">
+        <h2>Browse by Topic</h2>
+        <div class="topics-grid">
+            <span class="topic-tag">JavaScript</span>
+            <span class="topic-tag">React</span>
+            <span class="topic-tag">Node.js</span>
+            <span class="topic-tag">Python</span>
+            <span class="topic-tag">AI/ML</span>
+            <span class="topic-tag">DevOps</span>
+            <span class="topic-tag">CSS</span>
+            <span class="topic-tag">Security</span>
+            <span class="topic-tag">Career</span>
+            <span class="topic-tag">Tutorial</span>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <h2>📧 Stay Updated</h2>
+        <p>Subscribe to get the latest articles delivered to your inbox.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+            <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+            <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Donbili. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,3 +1,22 @@
+// ===== Mobile Menu Toggle =====
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    });
+
+    // Close menu when a link is clicked
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    });
+}
+
 // ===== Lenis Smooth Scrolling =====
 const lenis = new Lenis({
     duration: 1.2,
@@ -17,34 +36,13 @@ function raf(time) {
 
 requestAnimationFrame(raf);
 
-// ===== Mobile Menu Toggle =====
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-
-if (hamburger && navMenu) {
-    hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-    });
-
-    // Close menu when a link is clicked
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-        });
-    });
-}
-
-// ===== Smooth Scrolling (Integrated with Lenis) =====
+// ===== Smooth Scrolling (for hash links) =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            lenis.scrollTo(target);
-            // Close mobile menu if open
-            if (navMenu && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-            }
+            target.scrollIntoView({ behavior: 'smooth' });
         }
     });
 });
@@ -84,7 +82,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe all elements with animation classes
-document.querySelectorAll('.project-card, .skill-category-card, .stat-item, .contact-item').forEach(el => {
+document.querySelectorAll('.project-card, .skill-category-card, .stat-item, .contact-item, .testimonial-card, .terminal-section').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -164,6 +162,111 @@ if (contactForm) {
     });
 } else {
     console.warn('Contact form not found on page.');
+}
+
+// ===== Terminal/CLI Functionality =====
+const terminalInput = document.getElementById('terminal-input');
+const terminalLines = document.getElementById('terminal-lines');
+const terminalBody = document.getElementById('terminal-body');
+
+if (terminalInput) {
+    // Command definitions
+    const commands = {
+        help: {
+            response: `Available commands:\n  help      - Show this help message\n  about     - Learn about Donbili\n  skills    - View technical skills\n  projects  - List featured projects\n  contact   - Get contact information\n  social    - View social links\n  clear     - Clear terminal\n  whoami    - Display current user\n  date      - Show current date & time\n  matrix    - Enter the Matrix...`,
+            type: 'success'
+        },
+        about: {
+            response: `Hey! I'm Donbili - a Full-Stack Developer\n\nI specialize in building:\n• Interactive web applications\n• 3D experiences with Three.js\n• Fast and scalable APIs\n• Modern React & Vue apps\n\nBased in Kokrajhar, Assam, India\nPassionate about creating elegant solutions to complex problems.`,
+            type: 'success'
+        },
+        skills: {
+            response: `Technical Skills:\n\nFrontend:\n  ★★★★★ HTML/CSS/JavaScript\n  ★★★★★ React.js\n  ★★★★☆ Vue.js\n  ★★★★☆ TypeScript\n  ★★★☆☆ Three.js/WebGL\n\nBackend:\n  ★★★★★ Node.js\n  ★★★★★ Python\n  ★★★★☆ Express.js\n  ★★★★☆ MongoDB\n  ★★★☆☆ PostgreSQL\n\nTools:\n  ★★★★★ Git/GitHub\n  ★★★★☆ Docker\n  ★★★☆☆ AWS\n  ★★★☆☆ CI/CD`,
+            type: 'success'
+        },
+        projects: {
+            response: `Featured Projects:\n\n1. Citk Connect Project\n   → AI companion for students\n   → JavaScript, Dart, Python\n\n2. E-Commerce Platform\n   → Full-featured with 3D visualization\n   → React, Node.js, Three.js\n\n3. Brainbox\n   → Intelligent chatbot with NLP\n   → Python, TensorFlow, WebRTC\n\n4. 3D Product Viewer\n   → AR-supported visualization\n   → Three.js, AR.js, WebGL`,
+            type: 'success'
+        },
+        contact: {
+            response: `Contact Information:\n\nEmail:  work.donbill@gmail.com\nPhone:  +91 6002524400\nLocation: Kokrajhar, Assam, India\n\nFeel free to reach out!`,
+            type: 'success'
+        },
+        social: {
+            response: `Social Links:\n\n• GitHub:   https://github.com/Donbili69\n• LinkedIn: https://www.linkedin.com/in/donbill-mwshahary-7731293a1/\n• Twitter:  https://x.com/Donbill_M\n\nFollow me!`,
+            type: 'success'
+        },
+        whoami: {
+            response: `donbili@portfolio`,
+            type: 'success'
+        },
+        date: {
+            response: '',
+            type: 'dynamic',
+            getValue: () => new Date().toString()
+        },
+        matrix: {
+            response: `The Matrix has you...\n\nFollow the white rabbit.\n\n  ┌─┐┌─┐ ┬┌─┐┌┐┌\n  ├─┤│ ┬│││││││\n  ┴ ┴└─┘┘└┘└┘└┘\n\nType 'exit' to return to reality.`,
+            type: 'success'
+        },
+        clear: {
+            response: 'clear',
+            type: 'clear'
+        },
+        exit: {
+            response: 'You have left the Matrix. Welcome back to reality.',
+            type: 'success'
+        },
+        ls: {
+            response: `about.md  projects/  skills.json  contact.txt  testimonials/\ngithub/    linkedin/  twitter/    email`,
+            type: 'success'
+        },
+        pwd: {
+            response: `/home/donbili/portfolio`,
+            type: 'success'
+        }
+    };
+
+    terminalInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            const input = this.value.trim();
+            if (input) {
+                const parts = input.split(' ');
+                const cmd = parts[0].toLowerCase();
+                addCommandLine(input);
+                if (commands[cmd]) {
+                    const command = commands[cmd];
+                    if (command.type === 'clear') {
+                        terminalLines.innerHTML = '';
+                    } else if (command.type === 'dynamic') {
+                        addResponse(command.getValue(), 'success');
+                    } else {
+                        addResponse(command.response, command.type);
+                    }
+                } else {
+                    addResponse(`Command not found: ${cmd}. Type 'help' for available commands.`, 'error');
+                }
+            }
+            this.value = '';
+            setTimeout(() => { terminalBody.scrollTop = terminalBody.scrollHeight; }, 10);
+        }
+    });
+
+    terminalBody.addEventListener('click', () => { terminalInput.focus(); });
+
+    function addCommandLine(cmd) {
+        const line = document.createElement('div');
+        line.className = 'terminal-line command-line';
+        line.innerHTML = `<span class="prompt">➜ ~</span><span class="cmd">${cmd}</span>`;
+        terminalLines.appendChild(line);
+    }
+
+    function addResponse(response, type) {
+        const line = document.createElement('div');
+        line.className = `terminal-line response ${type}`;
+        line.textContent = response;
+        terminalLines.appendChild(line);
+    }
 }
 
 // ===== CTA Button Scroll to Contact =====
@@ -330,26 +433,6 @@ window.addEventListener('load', () => {
     document.querySelectorAll('.section-title').forEach((title, index) => {
         title.style.animation = `slideInDown 0.8s ease ${index * 0.1}s both`;
     });
-    // Initialize code snippets modal handlers
-    try { initCodeSnippets(); } catch (e) { console.warn('initCodeSnippets failed', e); }
-});
-
-// ===== TypeScript demo runtime (compiled JS equivalent) =====
-document.addEventListener('DOMContentLoaded', () => {
-    const runBtn = document.getElementById('ts-run-btn');
-    const inputA = document.getElementById('ts-a');
-    const inputB = document.getElementById('ts-b');
-    const result = document.getElementById('ts-result');
-
-    if (runBtn && inputA && inputB && result) {
-        runBtn.addEventListener('click', () => {
-            // compiled JS equivalent of: function add(a: number, b: number): number { return a + b; }
-            const a = Number((inputA).value) || 0;
-            const b = Number((inputB).value) || 0;
-            const sum = a + b;
-            result.textContent = `Result: ${sum}`;
-        });
-    }
 });
 
 // ===== Mouse Trail Effect (Optional - Premium Feel) =====
@@ -406,6 +489,45 @@ const createProgressBar = () => {
 
 createProgressBar();
 
+// ===== Dynamic Cursor Effect =====
+const cursor = document.createElement('div');
+cursor.style.cssText = `
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00d4ff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+    display: none;
+`;
+document.body.appendChild(cursor);
+
+document.addEventListener('mousemove', (e) => {
+    if (window.innerWidth > 768) {
+        cursor.style.display = 'block';
+        cursor.style.left = (e.clientX - 10) + 'px';
+        cursor.style.top = (e.clientY - 10) + 'px';
+    }
+});
+// Hide cursor when leaving window
+window.addEventListener('mouseout', (e) => {
+    if (!e.relatedTarget && !e.toElement) cursor.style.display = 'none';
+});
+
+// ===== Links and Buttons Hover Effect =====
+document.querySelectorAll('a, button').forEach(element => {
+    element.addEventListener('mouseenter', () => {
+        cursor.style.borderColor = '#00d4ff';
+        cursor.style.opacity = '1';
+    });
+
+    element.addEventListener('mouseleave', () => {
+        cursor.style.borderColor = '#00d4ff';
+        cursor.style.opacity = '0.5';
+    });
+});
 
 // ===== Rotating Quotes & Jokes =====
 const QUOTES_LIBRARY = [
@@ -473,11 +595,7 @@ const CODE_SNIPPETS = {
         output: `<div style="padding: 2rem; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-radius: 12px; text-align: center; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-8px) scale(1.05)'; this.style.boxShadow='0 20px 40px rgba(102, 126, 234, 0.5)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='none'">
   <h3 style="margin: 0 0 1rem; font-size: 1.5rem;">✨ Beautiful Card</h3>
   <p style="margin: 0; font-size: 0.95rem;">Hover over this to see the effect!</p>
-</div>`,
-        resource: {
-            url: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
-            description: "Learn semantic HTML structure, accessibility, and modern CSS techniques from Mozilla's comprehensive guides."
-        }
+</div>`
     },
 
     javascript: {
@@ -515,11 +633,7 @@ function incrementCounter() {
     display.style.color = counter.count > 5 ? '#00d4ff' : '#667eea';
   }
 }
-</script>`,
-        resource: {
-            url: 'https://javascript.info',
-            description: "Master JavaScript fundamentals with interactive tutorials, from basic syntax to advanced async/await patterns."
-        }
+</script>`
     },
 
     react: {
@@ -554,11 +668,7 @@ export default Counter;`,
   <h3 style="margin: 0 0 1rem; color: #667eea;">React Counter</h3>
   <p style="font-size: 1.2rem; color: #00d4ff; margin: 1rem 0;">Click the button to increment</p>
   <button style="padding: 0.8rem 1.5rem; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">⚛️ Works with state management</button>
-</div>`,
-        resource: {
-            url: 'https://react.dev',
-            description: "Learn React from the official documentation. Build interactive UIs with hooks, state management, and component best practices."
-        }
+</div>`
     },
 
     responsive: {
@@ -598,11 +708,7 @@ export default Counter;`,
   <div style="padding: 2rem; background: #667eea; border-radius: 8px; text-align: center; color: white; font-weight: bold;">Item 1</div>
   <div style="padding: 2rem; background: #764ba2; border-radius: 8px; text-align: center; color: white; font-weight: bold;">Item 2</div>
   <div style="padding: 2rem; background: #f093fb; border-radius: 8px; text-align: center; color: white; font-weight: bold;">Item 3</div>
-</div>`,
-        resource: {
-            url: 'https://web.dev/responsive-web-design-basics/',
-            description: "Master responsive design techniques. Learn mobile-first approach, flexbox, CSS grid, and media queries for all devices."
-        }
+</div>`
     },
 
     nodejs: {
@@ -639,11 +745,7 @@ app.listen(3000, () => {
     <li>Server running on port 3000 ✓</li>
   </ul>
   <p style="margin-top: 1rem; color: #667eea;">This is a production-ready Express setup!</p>
-</div>`,
-        resource: {
-            url: 'https://nodejs.org/docs/',
-            description: "Learn Node.js server-side development. Build REST APIs, handle async operations, and create scalable backend applications."
-        }
+</div>`
     },
 
     python: {
@@ -676,11 +778,7 @@ print(f"Portfolio Stats: {stats}")`,
     <li>Completion Rate: 66.7%</li>
     <li>Status: Active Development ✓</li>
   </ul>
-</div>`,
-        resource: {
-            url: 'https://python.org/about/gettingstarted/',
-            description: "Learn Python programming from basics to advanced. Explore data structures, functions, and build real-world projects."
-        }
+</div>`
     },
 
     database: {
@@ -714,11 +812,7 @@ SELECT title, technologies FROM projects ORDER BY completion_date DESC;`,
       <td>Vue.js, Express, MongoDB</td>
     </tr>
   </table>
-</div>`,
-        resource: {
-            url: 'https://www.w3schools.com/sql/',
-            description: "Master database design and SQL queries. Learn database management, optimization, and best practices for data storage."
-        }
+</div>`
     },
 
     api: {
@@ -756,11 +850,7 @@ fetchPortfolioData().then(data => {
     "experience": "5+ years"
   }
 }</pre>
-</div>`,
-        resource: {
-            url: 'https://restfulapi.net/',
-            description: "Understand REST API design principles. Learn proper HTTP methods, status codes, and create well-designed APIs."
-        }
+</div>`
     },
 
     git: {
@@ -792,11 +882,7 @@ git status`,
     <li>Last commit: "Add new feature" 2 hours ago</li>
     <li>Status: Ready for merge</li>
   </ul>
-</div>`,
-        resource: {
-            url: 'https://git-scm.com/doc',
-            description: "Learn Git version control thoroughly. Master branching, merging, collaboration workflows, and best practices for teams."
-        }
+</div>`
     },
 
     agile: {
@@ -829,11 +915,7 @@ git status`,
     <li>Velocity: 35/40 points completed</li>
     <li>Team: 4 developers, 1 designer</li>
   </ul>
-</div>`,
-        resource: {
-            url: 'https://agilemanifesto.org/',
-            description: "Understand Agile methodology and iterative development. Learn sprint planning, standups, and team collaboration practices."
-        }
+</div>`
     },
 
     docker: {
@@ -865,11 +947,7 @@ docker stop <id>      # Stop container`,
     <li>Port: 8080 -> 8080</li>
     <li>Memory: 256MB | CPU: 0.5</li>
   </ul>
-</div>`,
-        resource: {
-            url: 'https://docs.docker.com/',
-            description: "Learn containerization with Docker. Build, deploy, and manage containers for consistent development and production environments."
-        }
+</div>`
     },
 
     testing: {
@@ -900,11 +978,7 @@ describe('Portfolio Functions', () => {
     <li>✓ async API call (45ms)</li>
     <li style="color: #00d4ff; margin-top: 1rem;"><strong>3 passed, 0 failed</strong></li>
   </ul>
-</div>`,
-        resource: {
-            url: 'https://jestjs.io/docs/getting-started',
-            description: "Master automated testing with Jest. Learn unit testing, integration testing, and mocking for reliable code quality."
-        }
+</div>`
     }
 };
 
@@ -912,13 +986,10 @@ function initCodeSnippets() {
     const codeModal = document.getElementById('code-modal');
     const codeTitle = document.getElementById('code-title');
     const codeOutput = document.getElementById('code-output');
-    const codeSnippetPre = document.getElementById('code-snippet');
-    const codeSnippetBlock = codeSnippetPre.querySelector('code');
-    const toggleFullBtn = document.getElementById('toggle-full-btn');
+    const codeSnippetBlock = document.getElementById('code-snippet').querySelector('code');
     const codeCopyBtn = document.getElementById('copy-code-btn');
     const codeRunBtn = document.getElementById('run-code-btn');
     const codeModalClose = document.getElementById('code-modal-close');
-    const learnMoreBtn = document.getElementById('learn-more-btn');
 
     if (!codeModal) return;
 
@@ -957,66 +1028,32 @@ function initCodeSnippets() {
         });
     }
 
-    // Show Code Snippet
+    // Show Code Snippet - Now redirects to external sites
     document.querySelectorAll('.code-curiosity-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
             const skill = btn.getAttribute('data-skill');
-            const snippet = CODE_SNIPPETS[skill];
-            if (snippet) {
-                const skillNames = {
-                    htmlcss: 'HTML & CSS',
-                    javascript: 'JavaScript',
-                    react: 'React',
-                    responsive: 'Responsive Design',
-                    nodejs: 'Node.js',
-                    python: 'Python',
-                    database: 'Databases',
-                    api: 'REST APIs',
-                    git: 'Git',
-                    agile: 'Agile',
-                    docker: 'Docker',
-                    testing: 'Testing'
-                };
-                codeTitle.textContent = `${skillNames[skill]} Code Example`;
-                codeSnippetBlock.textContent = snippet.code;
-                codeOutput.innerHTML = snippet.output || '';
-                codeOutput.style.display = snippet.output ? 'block' : 'none';
 
-                // Store skill for run button
-                codeRunBtn.setAttribute('data-skill', skill);
+            // Define external links for each skill
+            const skillLinks = {
+                htmlcss: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
+                javascript: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+                react: 'https://react.dev/',
+                responsive: 'https://www.w3.org/WAI/ER/tools/?q=responsive-design',
+                nodejs: 'https://nodejs.org/',
+                python: 'https://www.python.org/',
+                database: 'https://www.mongodb.com/',
+                api: 'https://www.redhat.com/en/topics/api/what-is-rest-api',
+                git: 'https://git-scm.com/',
+                agile: 'https://www.agilealliance.org/agile-101/',
+                docker: 'https://www.docker.com/',
+                testing: 'https://jestjs.io/'
+            };
 
-                // Set Learn More link
-                if (learnMoreBtn && snippet.resource) {
-                    learnMoreBtn.href = snippet.resource.url;
-                    learnMoreBtn.title = snippet.resource.description;
-                    learnMoreBtn.style.display = 'inline-block';
-                } else if (learnMoreBtn) {
-                    learnMoreBtn.style.display = 'none';
-                }
-                // Set snippet collapsed by default
-                if (codeSnippetPre) {
-                    codeSnippetPre.classList.remove('expanded');
-                }
-                if (toggleFullBtn) {
-                    toggleFullBtn.textContent = 'Show More';
-                    toggleFullBtn.style.display = 'inline-block';
-                }
-
-                codeModal.style.display = 'flex';
+            // Redirect to external site
+            if (skillLinks[skill]) {
+                window.open(skillLinks[skill], '_blank', 'noopener,noreferrer');
             }
         });
     });
-
-    // Toggle full snippet view
-    if (toggleFullBtn && codeSnippetPre) {
-        toggleFullBtn.addEventListener('click', () => {
-            if (codeSnippetPre.classList.contains('expanded')) {
-                codeSnippetPre.classList.remove('expanded');
-                toggleFullBtn.textContent = 'Show More';
-            } else {
-                codeSnippetPre.classList.add('expanded');
-                toggleFullBtn.textContent = 'Show Less';
-            }
-        });
-    }
 }
